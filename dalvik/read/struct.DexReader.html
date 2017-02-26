@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `DexReader` struct in crate `dalvik`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, DexReader">
+
+    <title>dalvik::read::DexReader - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>dalvik</a>::<wbr><a href='index.html'>read</a></p><script>window.sidebarCurrent = {name: 'DexReader', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>dalvik</a>::<wbr><a href='index.html'>read</a>::<wbr><a class='struct' href=''>DexReader</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/dalvik/read/mod.rs.html#16-70' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct DexReader&lt;R:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html' title='std::io::BufRead'>BufRead</a>&gt; {
+    reader: R,
+    current_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,
+    header: <a class='struct' href='../../dalvik/header/struct.Header.html' title='dalvik::header::Header'>Header</a>,
+    offset_map: <a class='struct' href='../../dalvik/offset_map/struct.OffsetMap.html' title='dalvik::offset_map::OffsetMap'>OffsetMap</a>,
+    unknown_data: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;,
+    string_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;,
+    type_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;,
+    prototype_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../dalvik/read/types/struct.PrototypeIdData.html' title='dalvik::read::types::PrototypeIdData'>PrototypeIdData</a>&gt;,
+    field_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../dalvik/read/types/struct.FieldIdData.html' title='dalvik::read::types::FieldIdData'>FieldIdData</a>&gt;,
+    method_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../dalvik/read/types/struct.MethodIdData.html' title='dalvik::read::types::MethodIdData'>MethodIdData</a>&gt;,
+    class_defs: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../dalvik/read/types/struct.ClassDefData.html' title='dalvik::read::types::ClassDefData'>ClassDefData</a>&gt;,
+    type_lists: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;&gt;,
+    annotation_set_ref_list: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;&gt;,
+    annotation_sets: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;&gt;,
+    classes: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.ClassData.html' title='dalvik::read::types::ClassData'>ClassData</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;,
+    code_segments: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.CodeItem.html' title='dalvik::read::types::CodeItem'>CodeItem</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;,
+    strings: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;,
+    debug_info: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.DebugInfo.html' title='dalvik::read::types::DebugInfo'>DebugInfo</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;,
+    annotations: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.AnnotationItem.html' title='dalvik::read::types::AnnotationItem'>AnnotationItem</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;,
+    arrays: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.Array.html' title='dalvik::read::types::Array'>Array</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;,
+    annotations_directories: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.AnnotationsDirectory.html' title='dalvik::read::types::AnnotationsDirectory'>AnnotationsDirectory</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;,
+}</pre><div class='docblock'><p>Structure for reading a Dex file in a fast way.</p>
+</div><h2 class='fields'>Fields</h2><span id='structfield.reader' class='structfield'>
+                           <span id='reader.v' class='invisible'>
+                           <code>reader: R</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Reader to use to read data.</p>
+
+<p>Header must already be read before creating the object.</p>
+</div><span id='structfield.current_offset' class='structfield'>
+                           <span id='current_offset.v' class='invisible'>
+                           <code>current_offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Current reading offset.</p>
+</div><span id='structfield.header' class='structfield'>
+                           <span id='header.v' class='invisible'>
+                           <code>header: <a class='struct' href='../../dalvik/header/struct.Header.html' title='dalvik::header::Header'>Header</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Header of the dex file.</p>
+</div><span id='structfield.offset_map' class='structfield'>
+                           <span id='offset_map.v' class='invisible'>
+                           <code>offset_map: <a class='struct' href='../../dalvik/offset_map/struct.OffsetMap.html' title='dalvik::offset_map::OffsetMap'>OffsetMap</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Map to store all known offsets in the Dex file.</p>
+</div><span id='structfield.unknown_data' class='structfield'>
+                           <span id='unknown_data.v' class='invisible'>
+                           <code>unknown_data: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Vector of chunks of binary data that were not understood when reading sequencially.</p>
+</div><span id='structfield.string_ids' class='structfield'>
+                           <span id='string_ids.v' class='invisible'>
+                           <code>string_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>String ID list.</p>
+
+<p>This list creates 1:1 relations between String indexes and string offsets in the dex file.</p>
+</div><span id='structfield.type_ids' class='structfield'>
+                           <span id='type_ids.v' class='invisible'>
+                           <code>type_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Type ID list.</p>
+
+<p>This list creates 1:1 relations between type indexes and type descriptor string index.</p>
+</div><span id='structfield.prototype_ids' class='structfield'>
+                           <span id='prototype_ids.v' class='invisible'>
+                           <code>prototype_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../dalvik/read/types/struct.PrototypeIdData.html' title='dalvik::read::types::PrototypeIdData'>PrototypeIdData</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Prototype ID list.</p>
+</div><span id='structfield.field_ids' class='structfield'>
+                           <span id='field_ids.v' class='invisible'>
+                           <code>field_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../dalvik/read/types/struct.FieldIdData.html' title='dalvik::read::types::FieldIdData'>FieldIdData</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Field ID list.</p>
+
+<p>This list creates 1:1 relations between field indexes and field information offsets in the
+dex file.</p>
+</div><span id='structfield.method_ids' class='structfield'>
+                           <span id='method_ids.v' class='invisible'>
+                           <code>method_ids: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../dalvik/read/types/struct.MethodIdData.html' title='dalvik::read::types::MethodIdData'>MethodIdData</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Method ID list.</p>
+</div><span id='structfield.class_defs' class='structfield'>
+                           <span id='class_defs.v' class='invisible'>
+                           <code>class_defs: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../dalvik/read/types/struct.ClassDefData.html' title='dalvik::read::types::ClassDefData'>ClassDefData</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Class definition list</p>
+</div><span id='structfield.type_lists' class='structfield'>
+                           <span id='type_lists.v' class='invisible'>
+                           <code>type_lists: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Type list.</p>
+
+<p>Each element is the index in the type ID list for the type.</p>
+</div><span id='structfield.annotation_set_ref_list' class='structfield'>
+                           <span id='annotation_set_ref_list.v' class='invisible'>
+                           <code>annotation_set_ref_list: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>List of lists of references to annotation set offsets.</p>
+</div><span id='structfield.annotation_sets' class='structfield'>
+                           <span id='annotation_sets.v' class='invisible'>
+                           <code>annotation_sets: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Set of annotations.</p>
+</div><span id='structfield.classes' class='structfield'>
+                           <span id='classes.v' class='invisible'>
+                           <code>classes: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.ClassData.html' title='dalvik::read::types::ClassData'>ClassData</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Class data list.</p>
+</div><span id='structfield.code_segments' class='structfield'>
+                           <span id='code_segments.v' class='invisible'>
+                           <code>code_segments: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.CodeItem.html' title='dalvik::read::types::CodeItem'>CodeItem</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Code segment list.</p>
+</div><span id='structfield.strings' class='structfield'>
+                           <span id='strings.v' class='invisible'>
+                           <code>strings: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>String list.</p>
+</div><span id='structfield.debug_info' class='structfield'>
+                           <span id='debug_info.v' class='invisible'>
+                           <code>debug_info: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.DebugInfo.html' title='dalvik::read::types::DebugInfo'>DebugInfo</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Debug information list.</p>
+</div><span id='structfield.annotations' class='structfield'>
+                           <span id='annotations.v' class='invisible'>
+                           <code>annotations: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.AnnotationItem.html' title='dalvik::read::types::AnnotationItem'>AnnotationItem</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Annotation list.</p>
+</div><span id='structfield.arrays' class='structfield'>
+                           <span id='arrays.v' class='invisible'>
+                           <code>arrays: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.Array.html' title='dalvik::read::types::Array'>Array</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Array list.</p>
+</div><span id='structfield.annotations_directories' class='structfield'>
+                           <span id='annotations_directories.v' class='invisible'>
+                           <code>annotations_directories: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, <a class='struct' href='../../dalvik/read/types/struct.AnnotationsDirectory.html' title='dalvik::read::types::AnnotationsDirectory'>AnnotationsDirectory</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Annotations directories.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;R&gt; <a class='struct' href='../../dalvik/read/struct.DexReader.html' title='dalvik::read::DexReader'>DexReader</a>&lt;R&gt; <span class='where'>where R: <a class='trait' href='https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html' title='std::io::BufRead'>BufRead</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/dalvik/read/mod.rs.html#72-512' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(header: <a class='struct' href='../../dalvik/header/struct.Header.html' title='dalvik::header::Header'>Header</a>, reader: R) -&gt; <a class='struct' href='../../dalvik/read/struct.DexReader.html' title='dalvik::read::DexReader'>DexReader</a>&lt;R&gt;</code></span></h4>
+<div class='docblock'><p>Creates a new reader with the information from the header of the file.</p>
+</div><h4 id='method.read_data' class='method'><span id='read_data.v' class='invisible'><code>fn <a href='#method.read_data' class='fnname'>read_data</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reades data from a whole file and stores its information.</p>
+</div><h4 id='method.read_next' class='method'><span id='read_next.v' class='invisible'><code>fn <a href='#method.read_next' class='fnname'>read_next</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self, offset_type: <a class='enum' href='../../dalvik/offset_map/enum.OffsetType.html' title='dalvik::offset_map::OffsetType'>OffsetType</a>) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the next element</p>
+</div><h4 id='method.read_string_id_list' class='method'><span id='read_string_id_list.v' class='invisible'><code>fn <a href='#method.read_string_id_list' class='fnname'>read_string_id_list</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the list of string IDs.</p>
+</div><h4 id='method.read_type_id_list' class='method'><span id='read_type_id_list.v' class='invisible'><code>fn <a href='#method.read_type_id_list' class='fnname'>read_type_id_list</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the list of type IDs.</p>
+</div><h4 id='method.read_prototype_id_list' class='method'><span id='read_prototype_id_list.v' class='invisible'><code>fn <a href='#method.read_prototype_id_list' class='fnname'>read_prototype_id_list</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the list of prototype IDs.</p>
+</div><h4 id='method.read_field_id_list' class='method'><span id='read_field_id_list.v' class='invisible'><code>fn <a href='#method.read_field_id_list' class='fnname'>read_field_id_list</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the list of field IDs.</p>
+</div><h4 id='method.read_method_id_list' class='method'><span id='read_method_id_list.v' class='invisible'><code>fn <a href='#method.read_method_id_list' class='fnname'>read_method_id_list</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the list of method IDs.</p>
+</div><h4 id='method.read_class_def_list' class='method'><span id='read_class_def_list.v' class='invisible'><code>fn <a href='#method.read_class_def_list' class='fnname'>read_class_def_list</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the list of class definitions.</p>
+</div><h4 id='method.read_map' class='method'><span id='read_map.v' class='invisible'><code>fn <a href='#method.read_map' class='fnname'>read_map</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the map of the dex file.</p>
+</div><h4 id='method.read_type_lists' class='method'><span id='read_type_lists.v' class='invisible'><code>fn <a href='#method.read_type_lists' class='fnname'>read_type_lists</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the list of types.</p>
+</div><h4 id='method.read_annotation_set_list' class='method'><span id='read_annotation_set_list.v' class='invisible'><code>fn <a href='#method.read_annotation_set_list' class='fnname'>read_annotation_set_list</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads a list of annotation sets.</p>
+</div><h4 id='method.read_annotation_set' class='method'><span id='read_annotation_set.v' class='invisible'><code>fn <a href='#method.read_annotation_set' class='fnname'>read_annotation_set</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads an annotation set.</p>
+</div><h4 id='method.read_class_data' class='method'><span id='read_class_data.v' class='invisible'><code>fn <a href='#method.read_class_data' class='fnname'>read_class_data</a>(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads the class information.</p>
+</div><h4 id='method.read_code_item' class='method'><span id='read_code_item.v' class='invisible'><code>fn <a href='#method.read_code_item' class='fnname'>read_code_item</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads code information.</p>
+</div><h4 id='method.read_string_data' class='method'><span id='read_string_data.v' class='invisible'><code>fn <a href='#method.read_string_data' class='fnname'>read_string_data</a>(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads an actual string.</p>
+</div><h4 id='method.read_debug_info' class='method'><span id='read_debug_info.v' class='invisible'><code>fn <a href='#method.read_debug_info' class='fnname'>read_debug_info</a>(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads debug information.</p>
+</div><h4 id='method.read_annotation' class='method'><span id='read_annotation.v' class='invisible'><code>fn <a href='#method.read_annotation' class='fnname'>read_annotation</a>(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads an annotation.</p>
+</div><h4 id='method.read_encoded_array' class='method'><span id='read_encoded_array.v' class='invisible'><code>fn <a href='#method.read_encoded_array' class='fnname'>read_encoded_array</a>(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Reads an encoded array.</p>
+</div><h4 id='method.read_annotation_directory' class='method'><span id='read_annotation_directory.v' class='invisible'><code>fn <a href='#method.read_annotation_directory' class='fnname'>read_annotation_directory</a>&lt;E:&nbsp;ByteOrder&gt;(&amp;mut self) -&gt; <a class='type' href='../../dalvik/error/type.Result.html' title='dalvik::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;R:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html' title='std::io::BufRead'>BufRead</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../dalvik/read/struct.DexReader.html' title='dalvik::read::DexReader'>DexReader</a>&lt;R&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/dalvik/read/mod.rs.html#15' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "dalvik";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

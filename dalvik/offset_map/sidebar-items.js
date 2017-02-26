@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["OffsetType","Type of offset."]],"struct":[["OffsetMap","Structure representing a list of offsets."]]});
